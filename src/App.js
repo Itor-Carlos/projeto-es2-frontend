@@ -1,10 +1,14 @@
-import React from "react";
+import React, { StrictMode } from "react";
+import { SideBar } from "./components/SideBar";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Inicio do projeto</h1>
-    </div>
+   <StrictMode>
+      <div className="App">
+        <h1>Inicio do projeto</h1>
+        <SideBar/>
+      </div>
+   </StrictMode>
   );
 }
 
