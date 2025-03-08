@@ -1,0 +1,19 @@
+.top-bar {
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.breadcrumb {
+    font-size: 0.9rem;
+}
+  
+.breadcrumb-active {
+    color: var(--primary);
+    font-weight: 500;
+}
