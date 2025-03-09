@@ -1,8 +1,9 @@
 import React, { StrictMode } from "react";
 import { SideBar } from "./components/SideBar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import {GenericForm} from "./components/Form";
 import { CadastrarArea } from "./pages/area/CadastrarArea";
+import { ListarArea } from "./pages/area/ListarArea";
+import './index.css'
 
 function App() {
   return (
@@ -10,9 +11,12 @@ function App() {
     <div className="App">
       <SideBar/>
       <div className="main-content">
-        <Routes>
-          <Route path="/area/cadastrar_area" element={<CadastrarArea/>}/>
-        </Routes>
+          <div>
+              <Routes>
+                <Route path="/area/cadastrar_area" element={<CadastrarArea/>}/>
+                <Route path="/area/listar_area" element={<ListarArea/>}/>
+              </Routes>
+          </div>
       </div>
     </div>
    </BrowserRouter>
