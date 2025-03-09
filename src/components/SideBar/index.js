@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import './styles.css';
 import logo from '../../assets/logo.jpg';
+import { Link } from 'react-router-dom';
 
 export const SideBar = () => {
     const sidebarRef = useRef(null);
@@ -100,7 +101,7 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><a href="#" className="submenu-item">Cadastrar Áreas</a></li>
+                        <li><Link to="/area/cadastrar_area/" className="submenu-item">Cadastrar Áreas</Link></li>
                         <li><a href="#" className="submenu-item">Listar Áreas</a></li>
                     </ul>
                 </li>

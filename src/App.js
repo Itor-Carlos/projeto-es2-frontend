@@ -1,14 +1,21 @@
 import React, { StrictMode } from "react";
 import { SideBar } from "./components/SideBar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {GenericForm} from "./components/Form";
+import { CadastrarArea } from "./pages/area/CadastrarArea";
 
 function App() {
   return (
-   <StrictMode>
-      <div className="App">
-        <h1>Inicio do projeto</h1>
-        <SideBar/>
+   <BrowserRouter>
+    <div className="App">
+      <SideBar/>
+      <div className="main-content">
+        <Routes>
+          <Route path="/area/cadastrar_area" element={<CadastrarArea/>}/>
+        </Routes>
       </div>
-   </StrictMode>
+    </div>
+   </BrowserRouter>
   );
 }
 
