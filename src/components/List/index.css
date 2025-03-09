@@ -1,0 +1,33 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+  
+.table th {
+    background-color: var(--primary);
+    color: white;
+    text-align: left;
+    padding: 10px;
+    font-weight: 500;
+}
+  
+.table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+  
+.table tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+  
+.table tr:hover {
+    background-color: rgba(76, 175, 80, 0.05);
+}
+
+.main-content {
+    margin-left: 120px;
+    flex-grow: 1;
+    width: 115%;
+}

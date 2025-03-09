@@ -1,16 +1,9 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./styles.css";
-import { TopBar } from "../TopBar";
 
-export const GenericForm = ({ initialValues, validationSchema, title, sections, handleSubmit, entity, useCase }) => {
+export const GenericForm = ({ initialValues, validationSchema, sections, handleSubmit }) => {
   return (
-    <div className="main-content">
-      <TopBar entity={entity} useCase={useCase} />
-      
-      <div className="card">
-        <h1 style={{ fontSize: "32px" }}>{title}</h1>
-        
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -75,7 +68,5 @@ export const GenericForm = ({ initialValues, validationSchema, title, sections, 
             </Form>
           )}
         </Formik>
-      </div>
-    </div>
   );
 };
