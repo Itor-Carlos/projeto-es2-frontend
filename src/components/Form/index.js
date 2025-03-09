@@ -1,12 +1,12 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import "./styles.css"; 
+import "./styles.css";
 import { TopBar } from "../TopBar";
 
-export const GenericForm = ({ initialValues, validationSchema, title, sections, handleSubmit }) => {
+export const GenericForm = ({ initialValues, validationSchema, title, sections, handleSubmit, entity, useCase }) => {
   return (
     <div className="main-content">
-      <TopBar entity={"Fornecedores"} useCase={"Cadastrar Fornecedor"}/>
+      <TopBar entity={entity} useCase={useCase} />
       
       <div className="card">
         <h1 style={{ fontSize: "32px" }}>{title}</h1>
@@ -16,7 +16,7 @@ export const GenericForm = ({ initialValues, validationSchema, title, sections, 
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ handleSubmit }) => (
+          {({ handleSubmit, errors, touched }) => (
             <Form onSubmit={handleSubmit}>
               {sections.map((section, sectionIndex) => (
                 <div key={sectionIndex} className="form-grid">
@@ -43,6 +43,15 @@ export const GenericForm = ({ initialValues, validationSchema, title, sections, 
                             </option>
                           ))}
                         </Field>
+                      ) : field.type === "checkbox" ? (
+                        <div className="checkbox-group">
+                          <Field 
+                            type="checkbox" 
+                            id={field.name} 
+                            name={field.name} 
+                          />
+                          <label>Sim</label>
+                        </div>
                       ) : (
                         <Field 
                           type={field.type} 
@@ -52,6 +61,7 @@ export const GenericForm = ({ initialValues, validationSchema, title, sections, 
                           className="input"
                         />
                       )}
+                      
                       <ErrorMessage name={field.name} component="span" className="error-message" />
                     </div>
                   ))}

@@ -158,10 +158,20 @@ input:focus, select:focus {
   background-color: #1b5e20;
 }
 
-/* Error message styling */
 .error-message {
   color: var(--error);
   font-size: 0.8rem;
   margin-top: 2px;
   display: block;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  margin-right: 5px;
 }
