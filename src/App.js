@@ -1,4 +1,4 @@
-import React, { StrictMode } from "react";
+import React from "react";
 import { SideBar } from "./components/SideBar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CadastrarArea } from "./pages/area/CadastrarArea";
