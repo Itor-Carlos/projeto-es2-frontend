@@ -147,3 +147,10 @@ input:focus, select:focus {
     margin-left: 0;
   }
 }
+
+.error-message{
+  font-size: 12px;
+  color: var(--error);
+  margin-top: 5px;
+  margin-left: 2px;
+}
