@@ -8,6 +8,7 @@ export const GenericForm = ({ initialValues, validationSchema, sections, handleS
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
+          enableReinitialize={true}
         >
           {({ handleSubmit, errors, touched }) => (
             <Form onSubmit={handleSubmit}>
