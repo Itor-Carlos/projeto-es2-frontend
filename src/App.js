@@ -5,6 +5,7 @@ import { ListarArea } from "./pages/area/ListarArea";
 import { CadastrarEditarArea } from "./pages/area/CadastrarEditarArea";
 import './index.css'
 import { CadastrarClientes } from "./pages/cliente/CadastrarClientes";
+import { CadastrarEditarGrao } from "./pages/grao/CadastrarEditarGrao";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/area/editar/:id" element={<CadastrarEditarArea />} />
                 <Route path="/area/listar_area" element={<ListarArea/>}/>
                 <Route path="/cliente/cadastrar_cliente" element={<CadastrarClientes/>}/>
+                <Route path="/grao/cadastrar_grao/" element={<CadastrarEditarGrao/>}/>
               </Routes>
           </div>
       </div>
