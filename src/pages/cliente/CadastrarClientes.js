@@ -16,6 +16,15 @@ export const CadastrarClientes = () => {
         nome: "",
         email: "",
         estado: "",
+        cidade: "",
+        bairro: "",
+        logradouro: "",
+        numero: "",
+        cep: "",
+        documento: "",
+        telefone: "",
+        razaoSocial: "",
+        empresa: "",
     });
 
     const validationSchema = Yup.object({
