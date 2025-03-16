@@ -66,10 +66,10 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><a href="#" className="submenu-item">Cadastrar Funcionário</a></li>
-                        <li><a href="#" className="submenu-item">Listar Funcionário</a></li>
-                        <li><a href="#" className="submenu-item">Alocar Cargo</a></li>
-                        <li><a href="#" className="submenu-item">Alocar Tarefa</a></li>
+                        <li><Link to="#" className="submenu-item">Cadastrar Funcionário</Link></li>
+                        <li><Link to="#" className="submenu-item">Listar Funcionário</Link></li>
+                        <li><Link to="#" className="submenu-item">Alocar Cargo</Link></li>
+                        <li><Link to="#" className="submenu-item">Alocar Tarefa</Link></li>
                     </ul>
                 </li>
 
@@ -79,8 +79,8 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><a href="#" className="submenu-item">Cadastrar Fornecedor</a></li>
-                        <li><a href="#" className="submenu-item">Listar Fornecedores</a></li>
+                        <li><Link to="#" className="submenu-item">Cadastrar Fornecedor</Link></li>
+                        <li><Link to="#" className="submenu-item">Listar Fornecedores</Link></li>
                     </ul>
                 </li>
 
@@ -90,8 +90,8 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><a href="#" className="submenu-item">Cadastrar Clientes</a></li>
-                        <li><a href="#" className="submenu-item">Listar Clientes</a></li>
+                        <li><Link to="/cliente/cadastrar_cliente" className="submenu-item">Cadastrar Clientes</Link></li>
+                        <li><Link to="#" className="submenu-item">Listar Clientes</Link></li>
                     </ul>
                 </li>
 
@@ -118,8 +118,8 @@ export const SideBar = () => {
                                 <span className="arrow">▲</span>
                             </div>
                             <ul className="submenu">
-                                <li><a href="#" className="submenu-item">Cadastrar Grão</a></li>
-                                <li><a href="#" className="submenu-item">Listar Grão</a></li>
+                                <li><Link to="#" className="submenu-item">Cadastrar Grão</Link></li>
+                                <li><Link to="#" className="submenu-item">Listar Grão</Link></li>
                             </ul>
                         </li>
 
@@ -129,8 +129,8 @@ export const SideBar = () => {
                                 <span className="arrow">▲</span>
                             </div>
                             <ul className="submenu">
-                                <li><a href="#" className="submenu-item">Cadastrar Fertilizante</a></li>
-                                <li><a href="#" className="submenu-item">Listar Fertilizante</a></li>
+                                <li><Link to="#" className="submenu-item">Cadastrar Fertilizante</Link></li>
+                                <li><Link to="#" className="submenu-item">Listar Fertilizante</Link></li>
                             </ul>
                         </li>
                     </ul>
@@ -142,8 +142,8 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><a href="#" className="submenu-item">Cadastrar Safra</a></li>
-                        <li><a href="#" className="submenu-item">Listar Safra</a></li>
+                        <li><Link to="#" className="submenu-item">Cadastrar Safra</Link></li>
+                        <li><Link to="#" className="submenu-item">Listar Safra</Link></li>
                     </ul>
                 </li>
 
@@ -153,10 +153,10 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><a href="#" className="submenu-item">Cadastrar Pedido Cliente</a></li>
-                        <li><a href="#" className="submenu-item">Listar Pedidos Cliente</a></li>
-                        <li><a href="#" className="submenu-item">Cadastrar Pedido Fornecedor</a></li>
-                        <li><a href="#" className="submenu-item">Listar Pedidos Fornecedor</a></li>
+                        <li><Link to="#" className="submenu-item">Cadastrar Pedido Cliente</Link></li>
+                        <li><Link to="#" className="submenu-item">Listar Pedidos Cliente</Link></li>
+                        <li><Link to="#" className="submenu-item">Cadastrar Pedido Fornecedor</Link></li>
+                        <li><Link to="#" className="submenu-item">Listar Pedidos Fornecedor</Link></li>
                     </ul>
                 </li>
 
@@ -166,8 +166,8 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><a href="#" className="submenu-item">Cadastrar Cargo</a></li>
-                        <li><a href="#" className="submenu-item">Alocar Cargo</a></li>
+                        <li><Link to="#" className="submenu-item">Cadastrar Cargo</Link></li>
+                        <li><Link to="#" className="submenu-item">Alocar Cargo</Link></li>
                     </ul>
                 </li>
 
@@ -177,8 +177,8 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><a href="#" className="submenu-item">Cadastrar Tarefa</a></li>
-                        <li><a href="#" className="submenu-item">Listar Tarefas</a></li>
+                        <li><Link to="#" className="submenu-item">Cadastrar Tarefa</Link></li>
+                        <li><Link to="#" className="submenu-item">Listar Tarefas</Link></li>
                     </ul>
                 </li>
             </ul>
