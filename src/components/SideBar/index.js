@@ -90,7 +90,7 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><a href="#" className="submenu-item">Cadastrar Clientes</a></li>
+                        <li><a href="/cliente/cadastrar_cliente" className="submenu-item">Cadastrar Clientes</a></li>
                         <li><a href="#" className="submenu-item">Listar Clientes</a></li>
                     </ul>
                 </li>
