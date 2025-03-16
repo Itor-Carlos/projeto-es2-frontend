@@ -20,7 +20,6 @@ export const GenericForm = ({ initialValues, validationSchema, sections, handleS
                     <div 
                       key={field.name} 
                       className="form-group"
-                      style={field.style || {}}
                     >
                       <label htmlFor={field.name}>{field.label} {field.required && "*"}</label>
                       {field.type === "select" ? (
@@ -29,6 +28,7 @@ export const GenericForm = ({ initialValues, validationSchema, sections, handleS
                           id={field.name} 
                           name={field.name} 
                           className="input"
+                          style={field.style || {}}
                         >
                           <option value="" disabled>{field.placeholder}</option>
                           {field.options.map((option) => (
@@ -53,6 +53,7 @@ export const GenericForm = ({ initialValues, validationSchema, sections, handleS
                           name={field.name} 
                           placeholder={field.placeholder} 
                           className="input"
+                          style={field.style || {}}
                         />
                       )}
                       
