@@ -14,10 +14,10 @@ export const CadastrarEditarGrao = () => {
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("success");
     const [initialValues, setInitialValues] = useState({
-        tempomaturacao: 0,
-        periodoplantioinicio: new Date().toISOString().split("T")[0], // Data atual
+        tempomaturacao: "",
+        periodoplantioinicio: "",
         periodoplantiofim: "",
-        coeficienterendimento: 0.0
+        coeficienterendimento: ""
     });
 
     useEffect(() => {
@@ -44,7 +44,11 @@ export const CadastrarEditarGrao = () => {
     const validationSchema = Yup.object({
         tempomaturacao: Yup.number().typeError("Tempo de maturação deve ser um número").positive("Tempo de maturação deve ser um número positivo").required("Campo obrigatório"),
         periodoplantioinicio: Yup.date().required("Campo obrigatório"),
-        periodoplantiofim: Yup.date().required("Campo obrigatório"),
+        periodoplantiofim: Yup.date()
+            .test("is_after", "A data final deve ser posterior a data inicial", function(value){
+                const { periodoplantioinicio }= this.parent;
+                return new Date(value) > new Date(periodoplantioinicio);
+            }),
         coeficienterendimento: Yup.number().typeError("Coeficiente de rendimento deve ser um número").positive("Coeficiente de rendimento deve ser um número positivo").required("Campo obrigatório"),
     })
 
@@ -68,11 +72,12 @@ export const CadastrarEditarGrao = () => {
 
     const fields = [
         {
+            titleSection: "Informações básicas",
             fields: [
-                { label: "Tempo de maturação *", type: "float", name: "tempomaturacao", placeholder: "Digite o tempo de maturação"},
-                { label: "Data início do plantil", type: "date", name: "periodoplantioinicio"},
-                { label: "Data fim do plantil", type: "date", name: "periodoplantiofim"},
-                { label: "Coeficiente de rendimento", type: "float", name: "coeficienterendimento"},
+                { label: "Tempo maturação *", type: "float", name: "tempomaturacao", placeholder: "Digite o tempo de maturação"},
+                { label: "Período Plantio Inicial *", type: "date", name: "periodoplantioinicio"},
+                { label: "Período Pantio Final", type: "date", name: "periodoplantiofim"},
+                { label: "Coeficiente de Rendimento *", type: "float", name: "coeficienterendimento", placeholder: "Informe o coeficiente de rendimento"},
             ],
         },
     ];
