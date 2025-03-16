@@ -47,7 +47,7 @@ export const CadastrarEditarGrao = () => {
         periodoplantiofim: Yup.date()
             .test("is_after", "A data final deve ser posterior a data inicial", function(value){
                 const { periodoplantioinicio }= this.parent;
-                return new Date(value) > new Date(periodoplantioinicio);
+                return !value || new Date(value) > new Date(periodoplantioinicio);
             }),
         coeficienterendimento: Yup.number().typeError("Coeficiente de rendimento deve ser um número").positive("Coeficiente de rendimento deve ser um número positivo").required("Campo obrigatório"),
     })
@@ -76,7 +76,7 @@ export const CadastrarEditarGrao = () => {
             fields: [
                 { label: "Tempo maturação *", type: "float", name: "tempomaturacao", placeholder: "Digite o tempo de maturação"},
                 { label: "Período Plantio Inicial *", type: "date", name: "periodoplantioinicio"},
-                { label: "Período Pantio Final", type: "date", name: "periodoplantiofim"},
+                { label: "Período Plantio Final", type: "date", name: "periodoplantiofim"},
                 { label: "Coeficiente de Rendimento *", type: "float", name: "coeficienterendimento", placeholder: "Informe o coeficiente de rendimento"},
             ],
         },
