@@ -10,11 +10,11 @@ export const Router = () => {
         <div className="main-content">
             <div>
                 <Routes>
-                    <Route path="/area/cadastrar_area/" element={<CadastrarEditarArea/>}/>
+                    <Route path="/area/cadastrar/" element={<CadastrarEditarArea/>}/>
                     <Route path="/area/editar/:id" element={<CadastrarEditarArea />} />
-                    <Route path="/area/listar_area" element={<ListarArea/>}/>
-                    <Route path="/cliente/cadastrar_cliente" element={<CadastrarClientes/>}/>
-                    <Route path="/grao/cadastrar_grao/" element={<CadastrarEditarGrao/>}/>
+                    <Route path="/area/listar" element={<ListarArea/>}/>
+                    <Route path="/cliente/cadastrar" element={<CadastrarClientes/>}/>
+                    <Route path="/grao/cadastrar" element={<CadastrarEditarGrao/>}/>
                 </Routes>
             </div>
         </div>
