@@ -74,10 +74,10 @@ export const CadastrarEditarGrao = () => {
         {
             titleSection: "Informações básicas",
             fields: [
-                { label: "Tempo maturação *", type: "float", name: "tempomaturacao", placeholder: "Digite o tempo de maturação"},
-                { label: "Período Plantio Inicial *", type: "date", name: "periodoplantioinicio"},
+                { label: "Tempo maturação", type: "number", name: "tempomaturacao", placeholder: "Digite o tempo de maturação", required: true},
+                { label: "Período Plantio Inicial", type: "date", name: "periodoplantioinicio", required: true},
                 { label: "Período Plantio Final", type: "date", name: "periodoplantiofim"},
-                { label: "Coeficiente de Rendimento *", type: "float", name: "coeficienterendimento", placeholder: "Informe o coeficiente de rendimento"},
+                { label: "Coeficiente de Rendimento", type: "number", name: "coeficienterendimento", placeholder: "Informe o coeficiente de rendimento", required: true},
             ],
         },
     ];
