@@ -23,13 +23,6 @@ label{
     display: flex;
   }
   
-  .main-content {
-    margin-left: 250px;
-    flex-grow: 1;
-    padding: 12px;
-    overflow: auto;
-  }
-
   .App{
     display: flex; 
     width: 100vw;
