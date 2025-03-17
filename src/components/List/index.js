@@ -111,7 +111,8 @@ export const List = ({ entity, headers, itemsPerPage = 5, baseUrl, page = 1, pag
                     <td key={header.name}>
                       {header.type === 'boolean'
                         ? row[header.name] ? 'Sim' : 'Não'
-                        : row[header.name]}
+                        : !header.formatFunction ? row[header.name] : header.formatFunction(row)
+                        }
                     </td>
                   ))}
                   <td className="action-cell">

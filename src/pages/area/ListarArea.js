@@ -15,7 +15,7 @@ export const ListarArea = () => {
             name: "hectares",
             label: "Hectares",
             type: "number"
-        }, 
+        },
         {
             name: "emuso",
             label: "Em Uso",
