@@ -59,9 +59,8 @@ export const List = ({ entity, headers, itemsPerPage = 5, baseUrl, page = 1, pag
       setToastMessage(response.message);
       setToastType("success");
       setIsToastOpen(true);
-      setTimeout(() => {
-        window.location.reload();
-      }, 5000);
+      setRows(rows.filter(r => r[Object.keys(r)[0]] !== row[Object.keys(row)[0]]));
+      setFilteredRows(filteredRows.filter(r => r[Object.keys(r)[0]] !== row[Object.keys(row)[0]]));    
     } catch (error) {
       setToastMessage("Erro ao excluir registro");
       setToastType("error");
