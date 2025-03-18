@@ -27,8 +27,8 @@ export const CadastrarEditarGrao = () => {
                 .then(response => {
                     setInitialValues({
                         tempomaturacao: response.data.tempomaturacao,
-                        periodoplantioinicio: response.data.periodoplantioinicio,
-                        periodoplantiofim: response.data.periodoplantiofim,
+                        periodoplantioinicio: new Date(response.data.periodoplantioinicio).toISOString().split("T")[0],
+                        periodoplantiofim: new Date(response.data.periodoplantiofim).toISOString().split("T")[0],
                         coeficienterendimento: response.data.coeficienterendimento
                     });
                 })
