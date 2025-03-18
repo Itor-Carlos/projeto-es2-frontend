@@ -25,7 +25,7 @@ export const ListarArea = () => {
     
     return (
         <>
-            <TopBar entity={"Área"} useCase={"Listar Área"} textButton={"Nova Área"} redirectRoute={"/area/cadastrar_area"}/>
+            <TopBar entity={"Área"} useCase={"Listar Área"} textButton={"Nova Área"} redirectRoute={"/area/cadastrar"}/>
             <div className="card">
                 <TitleSection title={"Listar Área"} />
                 <List entity={"área"} headers={headers} baseUrl={"http://localhost:3306/areas"}/>
