@@ -4,6 +4,7 @@ import { CadastrarClientes } from "../../pages/cliente/CadastrarClientes";
 import { CadastrarEditarGrao } from "../../pages/grao/CadastrarEditarGrao";
 import { Route, Routes } from "react-router-dom";
 import './styles.css';
+import { CadastrarEditarSafra } from "../../pages/safra/CadastrarEditarSafra";
 
 export const Router = () => {
     return (
@@ -15,6 +16,7 @@ export const Router = () => {
                     <Route path="/area/listar" element={<ListarArea/>}/>
                     <Route path="/cliente/cadastrar" element={<CadastrarClientes/>}/>
                     <Route path="/grao/cadastrar" element={<CadastrarEditarGrao/>}/>
+                    <Route path="/safra/cadastrar/" element={<CadastrarEditarSafra/>}/>
                 </Routes>
             </div>
         </div>
