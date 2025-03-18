@@ -69,7 +69,8 @@ export const List = ({ entity, headers, itemsPerPage = 5, baseUrl, page = 1, pag
   };
 
   const onEdit = (event) => {
-    navigate(`/area/editar/${event[Object.keys(event)[0]]}`);
+    const entity = baseUrl.split('/').pop().slice(0, -1)
+    navigate(`/${entity}/editar/${event[Object.keys(event)[0]]}`);
   };
 
   const handleInputChange = (e) => {
