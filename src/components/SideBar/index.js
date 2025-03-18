@@ -119,7 +119,7 @@ export const SideBar = () => {
                             </div>
                             <ul className="submenu">
                                 <li><Link to="/grao/cadastrar" className="submenu-item">Cadastrar Grão</Link></li>
-                                <li><Link to="#" className="submenu-item">Listar Grão</Link></li>
+                                <li><Link to="/grao/listar" className="submenu-item">Listar Grão</Link></li>
                             </ul>
                         </li>
 
