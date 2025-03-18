@@ -19,6 +19,7 @@ export const Router = () => {
                     <Route path="/grao/cadastrar" element={<CadastrarEditarGrao/>}/>
                     <Route path="/safra/cadastrar/" element={<CadastrarEditarSafra/>}/>
                     <Route path="/safra/listar" element={<ListarSafra/>}/>
+                    <Route path="/safra/editar/:id" element={<CadastrarEditarSafra />} />
                 </Routes>
             </div>
         </div>

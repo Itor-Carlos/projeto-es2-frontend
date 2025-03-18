@@ -45,13 +45,13 @@ export const CadastrarEditarSafra = () => {
 
         if(id) {
             setIsEditing(true);
-            axios.get(`http://localhost:3306/graos/${id}`)
+            axios.get(`http://localhost:3306/safras/${id}`)
                 .then(response => {
                     setInitialValues({
                         quantidadeprevista: response.data.quantidadeprevista,
                         datainicio: response.data.datainicio,
-                        datafim: response.data.datafim,
-                        idgrao: graos.filter((grao) => grao.value === response.data.idgrao)[0].value
+                        datafim: response.data.datafim ? response.data.datafim : undefined,
+                        idgrao: response.data.idgrao
                     });
                 })
                 .catch((error) => {
@@ -76,14 +76,20 @@ export const CadastrarEditarSafra = () => {
 
     const handleSubmit = async (values) => {
         try {
+            const payload = {
+                ...values,
+                datafim: values.datafim ? values.datafim : undefined
+            };
+    
             if (isEditing) {
-                await axios.put(`http://localhost:3306/safras/${id}`, values);
-                setToastMessage("Safra atualizado com sucesso!");
+                await axios.put(`http://localhost:3306/safras/${id}`, payload);
+                setToastMessage("Safra atualizada com sucesso!");
             } else {
-                await axios.post(`http://localhost:3306/safras`, values);
-                setToastMessage("Safra cadastrado com sucesso!");
+                await axios.post(`http://localhost:3306/safras`, payload);
+                setToastMessage("Safra cadastrada com sucesso!");
             }
-            setToastType("sucesss");
+            
+            setToastType("success");
             setIsToastOpen(true);
         } catch (error) {
             setToastMessage("Erro ao salvar dados.");
