@@ -54,11 +54,17 @@ export const CadastrarEditarGrao = () => {
 
     const handleSubmit = async (values) => {
         try {
+
+            const payload = {
+                ...values,
+                periodoplantiofim: values.periodoplantiofim ? values.periodoplantiofim : undefined
+            };
+
             if (isEditing) {
-                await axios.put(`http://localhost:3306/graos/${id}`, values);
+                await axios.put(`http://localhost:3306/graos/${id}`, payload);
                 setToastMessage("Grão atualizado com sucesso!");
             } else {
-                await axios.post(`http://localhost:3306/graos`, values);
+                await axios.post(`http://localhost:3306/graos`, payload);
                 setToastMessage("Grão cadastrado com sucesso!");
             }
             setToastType("sucesss");
