@@ -8,7 +8,24 @@ export const GenericForm = ({ initialValues, validationSchema, sections, handleS
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={handleSubmit}
+      onSubmit={(values) => {
+        const updatedValues = { ...values };
+    
+        Object.keys(updatedValues).forEach((key) => {
+          if (key.toLowerCase().includes("data")) {
+            const dateValue = updatedValues[key];
+            if (!dateValue) {
+              updatedValues[key] = undefined;
+            } else {
+              const currentDate = new Date(dateValue);
+              const formattedDate = currentDate.toISOString().split("T")[0];
+              updatedValues[key] = formattedDate;
+            }
+          }
+        });
+    
+        handleSubmit(updatedValues);
+      }}
       enableReinitialize={true}
     >
       {({ handleSubmit }) => (
