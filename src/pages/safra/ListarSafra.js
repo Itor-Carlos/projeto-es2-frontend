@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { List } from "../../components/List";
 import { TitleSection } from "../../components/TitleSection";
 import { TopBar } from "../../components/TopBar";
-import { type } from "@testing-library/user-event/dist/type";
+import { formatDate } from "../../utils/date";
 
 export const ListarSafra = () => {
     const headers = [
@@ -20,18 +20,13 @@ export const ListarSafra = () => {
             name: "datainicio",
             label: "Data de Início",
             type: 'date',
-            formatFunction: (value) => new Date(value.datainicio).toLocaleDateString()
+            formatFunction: (value) => formatDate(value.datainicio)
         },
         {
             name: "datafim",
             label: "Data de Fim",
             type: 'date',
-            formatFunction: (value) => {
-                if (value.datafim) {
-                    return new Date(value.datafim).toLocaleDateString();
-                }
-                return "";    
-            }
+            formatFunction: (value) => formatDate(value.datafim)
         }
     ];
     
