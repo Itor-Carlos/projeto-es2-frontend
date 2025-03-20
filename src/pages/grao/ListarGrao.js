@@ -1,6 +1,7 @@
 import { List } from "../../components/List";
 import { TitleSection } from "../../components/TitleSection";
 import { TopBar } from "../../components/TopBar";
+import { formatDate } from "../../utils/date";
 
 
 export const ListarGrao = () => {
@@ -19,13 +20,13 @@ export const ListarGrao = () => {
             name: "periodoplantioinicio",
             label: "Período Plantio Início",
             type: "date",
-            formatFunction: (value) => new Date(value.periodoplantioinicio).toLocaleDateString("pt-br")
+            formatFunction: (value) => formatDate(value.periodoplantioinicio)
         },
         {
             name: "periodoplantiofim",
             label: "Período Plantio Fim",
             type: "date",
-            formatFunction: (value) => new Date(value.periodoplantiofim).toLocaleDateString("pt-br")
+            formatFunction: (value) => formatDate(value.periodoplantiofim)
         },
         {
             name: "coeficienterendimento",
