@@ -9,6 +9,8 @@ import { ListarSafra } from "../../pages/safra/ListarSafra";
 import { ListarGrao } from "../../pages/grao/ListarGrao";
 import { CadastrarEditarFertilizante } from "../../pages/fertilizante/CadastrarEditarFertilizante";
 import { ListarFertilizante } from "../../pages/fertilizante/ListarFertilizante";
+import { CadastrarEditarCargo } from "../../pages/cargo/CadastrarEditarCargo";
+import { AlocarCargo } from "../../pages/cargo/AlocarCargo";
 
 export const Router = () => {
     return (
@@ -28,6 +30,8 @@ export const Router = () => {
                     <Route path="/fertilizante/cadastrar/" element={<CadastrarEditarFertilizante />} />
                     <Route path="/fertilizante/editar/:id" element={<CadastrarEditarFertilizante />} />
                     <Route path="/fertilizante/listar" element={<ListarFertilizante />} />
+                    <Route path="/cargo/cadastrar/" element={<CadastrarEditarCargo />} />
+                    <Route path="/cargo/alocar" element={<AlocarCargo />} />
                 </Routes>
             </div>
         </div>
