@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { GenericForm } from "../../components/Form";
 import * as Yup from "yup";
 import axios from "axios";
@@ -8,7 +9,9 @@ import { Toast } from "../../components/Toast";
 import { cpf } from "cpf-cnpj-validator";
 import { estados } from "../../constantes/estados";
 
-export const CadastrarClientes = () => {
+export const CadastrarEditarClientes = () => {
+    const { id } = useParams();
+    const [isEditing, setIsEditing] = useState(false);
     const [isToastOpen, setIsToastOpen] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("success");
@@ -26,6 +29,37 @@ export const CadastrarClientes = () => {
         razaoSocial: "",
         empresa: "",
     });
+
+    useEffect(() => {
+        if (id) {
+            setIsEditing(true);
+            axios.get(`http://localhost:3306/clientes/${id}`)
+                .then(response => {
+                    const cliente = response.data;
+                    const endereco = response.data.endereco;
+                    setInitialValues({
+                        nome: cliente.nome,
+                        email: cliente.email,
+                        estado: endereco.estado,
+                        cidade: endereco.cidade,
+                        bairro: endereco.bairro,
+                        logradouro: endereco.logradouro,
+                        numero: endereco.numero,
+                        cep: endereco.cep,
+                        documento: cliente.documento,
+                        telefone: cliente.telefone,
+                        razaoSocial: cliente.razaosocial,
+                        empresa: cliente.empresa,
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setToastMessage("Erro ao carregar os dados.");
+                    setToastType("error");
+                    setIsToastOpen(true);
+                });
+        }
+    }, [id]);
 
     const validationSchema = Yup.object({
         nome: Yup.string().typeError("Nome inválido").required("Campo obrigatório"),
@@ -65,9 +99,15 @@ export const CadastrarClientes = () => {
                     "numero": values.numero,
                     "cep": values.cep,
                 }
+            };
+
+            if (isEditing) {
+                await axios.put(`http://localhost:3306/clientes/${id}`, param);
+                setToastMessage("Cliente atualizado com sucesso!");
+            } else {
+                await axios.post("http://localhost:3306/clientes", param);
+                setToastMessage("Cliente cadastrado com sucesso!");
             }
-            await axios.post("http://localhost:3306/clientes", param);
-            setToastMessage("Cliente cadastrado com sucesso!");
             setToastType("success");
             setIsToastOpen(true);
         } catch (error) {
@@ -104,17 +144,17 @@ export const CadastrarClientes = () => {
 
     return (
         <>
-            <TopBar entity={"Clientes"} useCase={"Cadastrar Cliente"} />
+            <TopBar entity={"Clientes"} useCase={isEditing ? "Editar Cliente" : "Cadastrar Cliente"} />
             <div className="card">
-                <TitleSection title={"Cadastrar Cliente"} />
+                <TitleSection title={isEditing ? "Editar Cliente" : "Cadastrar Cliente"} />
                 <GenericForm
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     sections={fields}
                     handleSubmit={handleSubmit}
                     entity={"Clientes"}
-                    useCase={"Cadastrar Cliente"}
-                    title={"Cadastrar Cliente"}
+                    useCase={isEditing ? "Editar Cliente" : "Cadastrar Cliente"}
+                    title={isEditing ? "Editar Cliente" : "Cadastrar Cliente"}
                 />
                 <Toast isOpen={isToastOpen} onClose={() => setIsToastOpen(false)} message={toastMessage} type={toastType} />
             </div>
