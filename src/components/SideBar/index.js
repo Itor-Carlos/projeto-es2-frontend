@@ -68,8 +68,6 @@ export const SideBar = () => {
                     <ul className="submenu">
                         <li><Link to="#" className="submenu-item">Cadastrar Funcionário</Link></li>
                         <li><Link to="#" className="submenu-item">Listar Funcionário</Link></li>
-                        <li><Link to="#" className="submenu-item">Alocar Cargo</Link></li>
-                        <li><Link to="#" className="submenu-item">Alocar Tarefa</Link></li>
                     </ul>
                 </li>
 
