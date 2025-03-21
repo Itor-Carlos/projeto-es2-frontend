@@ -61,8 +61,8 @@ export const AlocarCargo = () => {
         {
             titleSection: "Informações básicas",
             fields: [
-                { label: "Cargo", type: "string", name: "nome", placeholder: "Selecione o Cargo", required: true},
-                { label: "Funcionário", type: "string", name: "funcionario", placeholder: "Selecione o Funcionário", required: true}
+                { label: "Cargo", type: "select", name: "nome", placeholder: "Selecione o Cargo", required: true},
+                { label: "Funcionário", type: "select", name: "funcionario", placeholder: "Selecione o Funcionário", required: true}
             ],
         },
     ];
@@ -71,7 +71,7 @@ export const AlocarCargo = () => {
         <>
         <TopBar entity={"Cargo"} useCase={"Alocar Cargo"} />
         <div className="card">
-            <TitleSection title="Alocar Grão"/>
+            <TitleSection title="Alocar Cargo"/>
             <GenericForm
                 initialValues={initialValues}
                 validationSchema={validationSchema}

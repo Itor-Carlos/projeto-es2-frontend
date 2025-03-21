@@ -70,7 +70,7 @@ export const CadastrarEditarCargo = () => {
         <>
         <TopBar entity={"Cargo"} useCase={isEditing ? "Editar Cargo" : "Cadastrar Cargo"} />
         <div className="card">
-            <TitleSection title={isEditing ? "Editar Grão" : "Cadastrar Grão"} />
+            <TitleSection title={isEditing ? "Editar Cargo" : "Cadastrar Cargo"} />
             <GenericForm
                 initialValues={initialValues}
                 validationSchema={validationSchema}
