@@ -116,7 +116,15 @@ export const CadastrarEditarFuncionario = () => {
                 setIsToastOpen(true);
             }
         } catch (error) {
-            setToastMessage("Erro ao salvar os dados.");
+            if (error.response) {
+                setToastMessage(error.response.data.message || "Erro ao processar a solicitação.");
+            } 
+            else if (error.request) {
+                setToastMessage("Erro de rede: Não foi possível conectar ao servidor.");
+            } 
+            else {
+                setToastMessage("Erro inesperado: " + error.message);
+            }
             setToastType("error");
             setIsToastOpen(true);
         }
@@ -131,7 +139,7 @@ export const CadastrarEditarFuncionario = () => {
                 { label: "Email", type: "string", name: "email", placeholder: "Digite o email do funcionário",required: true },
                 { label: "Telefone", type: "string", name: "telefone", placeholder: "(00) 000000000", required: true, style: { width: "65%" } },
                 { label: "Data de Contratação", type: "date", name: "contratacao",required: true, style: { width: "65%" } },
-                { label: "Status", type: "string", name: "status", placeholder: "Digite a empresa do funcionário",required: true, style: { width: "65%" } },
+                { label: "Status", type: "select", options: [{label: "Ativo", value: "ativo"}, {label: "Inativo", value: "inativo"}] ,name: "status", placeholder: "Digite o status do funcionário",required: true, style: { width: "65%" } },
             ],
         },
         {
