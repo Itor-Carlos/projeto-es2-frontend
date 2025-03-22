@@ -84,14 +84,13 @@ export const CadastrarEditarFuncionario = () => {
 
     const handleSubmit = async (values) => {
         try {
-            console.log(values)
             const param = {
                 "funcionario": {
                     "nome": values.nome,
                     "email": values.email,
                     "documento": values.documento,
                     "telefone": values.telefone,
-                    "contratacao": values.dataContratacao,
+                    "contratacao": values.contratacao,
                     "status": values.status.toString().toLowerCase()
                 },
                 "endereco": {
