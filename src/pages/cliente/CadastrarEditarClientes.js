@@ -6,8 +6,8 @@ import axios from "axios";
 import { TopBar } from "../../components/TopBar";
 import { TitleSection } from "../../components/TitleSection";
 import { Toast } from "../../components/Toast";
-import { cpf } from "cpf-cnpj-validator";
 import { estados } from "../../constantes/estados";
+import Validation from "../../utils/validations";
 
 export const CadastrarEditarClientes = () => {
     const { id } = useParams();
@@ -64,11 +64,10 @@ export const CadastrarEditarClientes = () => {
     const validationSchema = Yup.object({
         nome: Yup.string().typeError("Nome inválido").required("Campo obrigatório"),
         email: Yup.string().typeError("Email inválido").required("Campo obrigatório"),
-        documento: Yup.string().typeError("Documento inválido").required("Campo obrigatório").test(
-            "valid-cpf",
-            "CPF inválido",
-            value => cpf.isValid(value)
-        ),
+        documento: Yup.string().typeError("Documento inválido").required("Campo obrigatório").test("valid-document", "Documento inválido", (value) => {
+            if (!value) return false;
+            return Validation.validateCpfCnpj(value);
+        }),
         telefone: Yup.string().typeError("Telefone inválido").required("Campo obrigatório"),
         razaoSocial: Yup.string().typeError("Razão Social inválida").required("Campo obrigatório"),
         empresa: Yup.string().typeError("Empresa inválida").required("Campo obrigatório"),
@@ -111,7 +110,13 @@ export const CadastrarEditarClientes = () => {
             setToastType("success");
             setIsToastOpen(true);
         } catch (error) {
-            setToastMessage("Erro ao salvar os dados.");
+            if (error.response) {
+                setToastMessage(error.response.data.message || "Erro ao processar a solicitação.");
+            } else if (error.request) {
+                setToastMessage("Erro de rede: Não foi possível conectar ao servidor.");
+            } else {
+                setToastMessage("Erro inesperado: " + error.message);
+            }
             setToastType("error");
             setIsToastOpen(true);
         }
@@ -121,23 +126,23 @@ export const CadastrarEditarClientes = () => {
         {
             titleSection: "Dados do Cliente",
             fields: [
-                { label: "Nome", type: "string", name: "nome", placeholder: "Digite o nome do cliente" },
-                { label: "Email", type: "string", name: "email", placeholder: "Digite o email do cliente" },
-                { label: "Documento", type: "string", name: "documento", placeholder: "Digite o documento do cliente" },
-                { label: "Telefone", type: "string", name: "telefone", placeholder: "Digite o telefone do cliente" },
-                { label: "Razão Social", type: "string", name: "razaoSocial", placeholder: "Digite a razão social do cliente" },
-                { label: "Empresa", type: "string", name: "empresa", placeholder: "Digite a empresa do cliente" },
+                { label: "Nome Completo", type: "string", name: "nome", placeholder: "Digite o nome do cliente", required: true },
+                { label: "Documento (CPF/CNPJ)", type: "string", name: "documento", placeholder: "Digite o documento do cliente", required: true },
+                { label: "Razão Social", type: "string", name: "razaoSocial", placeholder: "Digite a razão social do cliente", required: true },
+                { label: "Telefone", type: "string", name: "telefone", placeholder: "Digite o telefone do cliente", required: true },
+                { label: "Email", type: "string", name: "email", placeholder: "Digite o email do cliente", required: true },
+                { label: "Empresa", type: "string", name: "empresa", placeholder: "Digite a empresa do cliente", required: true },
             ],
         },
         {
             titleSection: "Endereço do Cliente",
             fields: [
-                { label: "Estado", type: "select", name: "estado", options: estados, placeholder: "Selecione o estado do cliente" },
-                { label: "Cidade", type: "string", name: "cidade", placeholder: "Digite a cidade do cliente" },
-                { label: "Bairro", type: "string", name: "bairro", placeholder: "Digite o bairro do cliente" },
-                { label: "Logradouro", type: "string", name: "logradouro", placeholder: "Digite o logradouro do cliente" },
-                { label: "Número", type: "string", name: "numero", placeholder: "Digite o número do cliente" },
-                { label: "CEP", type: "string", name: "cep", placeholder: "Digite o CEP do cliente" },
+                { label: "CEP", type: "string", name: "cep", placeholder: "Digite o CEP do cliente", required: true },
+                { label: "Estado", type: "select", name: "estado", options: estados, placeholder: "Selecione o estado do cliente", required: true },
+                { label: "Cidade", type: "string", name: "cidade", placeholder: "Digite a cidade do cliente", required: true },
+                { label: "Bairro", type: "string", name: "bairro", placeholder: "Digite o bairro do cliente", required: true },
+                { label: "Logradouro", type: "string", name: "logradouro", placeholder: "Digite o logradouro do cliente", required: true },
+                { label: "Número", type: "string", name: "numero", placeholder: "Digite o número do cliente", required: true },
             ],
         }
     ];
