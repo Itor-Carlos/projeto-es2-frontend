@@ -13,28 +13,82 @@ export const AlocarCargo = () => {
     const [isToastOpen, setIsToastOpen] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("success");
+
     const [initialValues, setInitialValues] = useState({
         nome: "",
         funcionario: ""
     });
 
+    const [cargos, setCargos] = useState([]);
+    const [funcionarios, setFuncionarios] = useState([]);
+
     const validationSchema = Yup.object({
-        nome: Yup.string().typeError("Nome inválido").required("Campo obrigatório"),
-        funcionario: Yup.string().typeError("Funcionário inválido").required("Campo obrigatório")
+        nome: Yup.string()
+            .typeError("Nome inválido")
+            .required("Campo obrigatório"),
+        funcionario: Yup.string()
+            .typeError("Funcionário inválido")
+            .required("Campo obrigatório")
     });
 
     useEffect(() => {
-        if(id) {
+        async function fetchCargos() {
+            try {
+                const response = await axios.get("http://localhost:3306/cargos");
+
+                if (response.data && response.data.rows) {
+                    const cargosData = response.data.rows.map((cargo) => ({
+                        value: cargo.idcargo,
+                        label: `${cargo.nome}`
+                    }));
+                    setCargos(cargosData);
+                } else {
+                    throw new Error("Estrutura inesperada na resposta da API de cargos");
+                }
+            } catch (error) {
+                console.error("Erro ao buscar cargos:", error);
+                setCargos([]);
+            }
+        }
+
+        async function fetchFuncionarios() {
+            try {
+                const response = await axios.get("http://localhost:3306/funcionarios");
+                if (response.data && response.data.rows) {
+                    const funcionariosData = response.data.rows.map((funcionario) => ({
+                        value: funcionario.idfuncionario,
+                        label: `${funcionario.nome}`
+                    }));
+                    setFuncionarios(funcionariosData);
+                } else {
+                    throw new Error("Estrutura inesperada na resposta da API de funcionários");
+                }
+            } catch (error) {
+                console.error("Erro ao buscar funcionários:", error);
+                setFuncionarios([]);
+            }
+        }
+
+        fetchCargos();
+        fetchFuncionarios();
+
+        if (id) {
             setIsEditing(true);
-            axios.get(`http://localhost:3306/cargos/alocar`) // Falta implementar a rota
+            
+            axios.get(`http://localhost:3306/cargos/alocar/${id}`)
                 .then(response => {
-                    setInitialValues({
-                        nome: response.data.nome,
-                        funcionario: response.data.funcionario
-                    });
+                    
+                    if(response.data) {
+                        setInitialValues({
+                            nome: response.data.nome,
+                            funcionario: response.data.funcionario
+                        });
+                    } else {
+                        throw new Error("Dados não encontrados para edição");
+                    }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error("Erro ao carregar os dados para edição:", error);
                     setToastMessage("Erro ao carregar os dados.");
                     setToastType("error");
                     setIsToastOpen(true);
@@ -44,13 +98,17 @@ export const AlocarCargo = () => {
 
     const handleSubmit = async (values) => {
         try {
-            if(isEditing) {
-                await axios.put(`http://localhost:3306/cargos/alocar`, values); // Falta implementar a rota
-                setToastMessage("Cargo alocado com sucesso!");
+            if (isEditing) {
+                await axios.put(`http://localhost:3306/cargos/alocar/${values.nome}/${values.funcionario}`, values);
+                setToastMessage("Cargo alocado atualizado com sucesso!");
+            } else {
+                await axios.post("http://localhost:3306/cargos/alocar", values);
+                setToastMessage("Cargo alocado cadastrado com sucesso!");
             }
             setToastType("success");
             setIsToastOpen(true);
         } catch (error) {
+            console.error("Erro ao salvar dados:", error);
             setToastMessage("Erro ao salvar os dados.");
             setToastType("error");
             setIsToastOpen(true);
@@ -61,28 +119,47 @@ export const AlocarCargo = () => {
         {
             titleSection: "Informações básicas",
             fields: [
-                { label: "Cargo", type: "select", name: "nome", placeholder: "Selecione o Cargo", required: true},
-                { label: "Funcionário", type: "select", name: "funcionario", placeholder: "Selecione o Funcionário", required: true}
-            ],
-        },
+                { 
+                    label: "Cargo", 
+                    type: "select", 
+                    name: "nome", 
+                    options: cargos, 
+                    placeholder: "Selecione o Cargo", 
+                    required: true
+                },
+                { 
+                    label: "Funcionário", 
+                    type: "select", 
+                    name: "funcionario", 
+                    options: funcionarios, 
+                    placeholder: "Selecione o Funcionário", 
+                    required: true
+                }
+            ]
+        }
     ];
 
     return (
         <>
-        <TopBar entity={"Cargo"} useCase={"Alocar Cargo"} />
-        <div className="card">
-            <TitleSection title="Alocar Cargo"/>
-            <GenericForm
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                sections={fields}
-                handleSubmit={handleSubmit}
-                entity={"Cargo"}
-                useCase={"Alocar Cargo" }
-                title={"Alocar Cargo" }
-            />
-            <Toast isOpen={isToastOpen} onClose={() => setIsToastOpen(false)} message={toastMessage} type={toastType} />
-        </div>
+            <TopBar entity={"Cargo"} useCase={isEditing ? "Editar Alocação de Cargo" : "Alocar Cargo"} />
+            <div className="card">
+                <TitleSection title={isEditing ? "Editar Alocação de Cargo" : "Alocar Cargo"} />
+                <GenericForm
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    sections={fields}
+                    handleSubmit={handleSubmit}
+                    entity={"Cargo"}
+                    useCase={isEditing ? "Editar Alocação de Cargo" : "Alocar Cargo"}
+                    title={isEditing ? "Editar Alocação de Cargo" : "Alocar Cargo"}
+                />
+                <Toast 
+                    isOpen={isToastOpen} 
+                    onClose={() => setIsToastOpen(false)} 
+                    message={toastMessage} 
+                    type={toastType} 
+                />
+            </div>
         </>
     );
-}
+};
