@@ -12,6 +12,8 @@ import { CadastrarEditarFertilizante } from "../../pages/fertilizante/CadastrarE
 import { ListarFertilizante } from "../../pages/fertilizante/ListarFertilizante";
 import { CadastrarTarefa } from "../../pages/tarefa/CadastrarTarefa";
 import { AlocarTarefa } from "../../pages/tarefa/AlocarTarefa";
+import { CadastrarEditarFuncionario } from "../../pages/funcionario/CadastrarEditarFuncionario";
+import { ListarFuncionarios } from "../../pages/funcionario/ListarFuncionarios";
 
 export const Router = () => {
     return (
@@ -35,6 +37,9 @@ export const Router = () => {
                     <Route path="/fertilizante/listar" element={<ListarFertilizante />} />
                     <Route path="/tarefa/cadastrar" element={<CadastrarTarefa />} />
                     <Route path="/tarefa/alocar/" element={<AlocarTarefa />} />
+                    <Route path="/funcionario/cadastrar" element={<CadastrarEditarFuncionario />} />
+                    <Route path="/funcionario/editar/:id" element={<CadastrarEditarFuncionario />} />
+                    <Route path="/funcionario/listar" element={<ListarFuncionarios />} />
                 </Routes>
             </div>
         </div>
