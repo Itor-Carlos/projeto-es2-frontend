@@ -12,7 +12,6 @@ export const AlocarCargo = () => {
     const [isToastOpen, setIsToastOpen] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("success");
-
     const [initialValues, setInitialValues] = useState({
         nome: "",
         funcionario: ""
