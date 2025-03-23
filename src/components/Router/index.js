@@ -1,16 +1,21 @@
 import { ListarArea } from "../../pages/area/ListarArea";
 import { CadastrarEditarArea } from "../../pages/area/CadastrarEditarArea";
-import { CadastrarClientes } from "../../pages/cliente/CadastrarClientes";
+import { CadastrarEditarClientes } from "../../pages/cliente/CadastrarEditarClientes";
 import { CadastrarEditarGrao } from "../../pages/grao/CadastrarEditarGrao";
 import { Route, Routes } from "react-router-dom";
 import './styles.css';
 import { CadastrarEditarSafra } from "../../pages/safra/CadastrarEditarSafra";
 import { ListarSafra } from "../../pages/safra/ListarSafra";
 import { ListarGrao } from "../../pages/grao/ListarGrao";
+import { ListarClientes } from "../../pages/cliente/ListarClientes";
 import { CadastrarEditarFertilizante } from "../../pages/fertilizante/CadastrarEditarFertilizante";
 import { ListarFertilizante } from "../../pages/fertilizante/ListarFertilizante";
 import { CadastrarEditarCargo } from "../../pages/cargo/CadastrarEditarCargo";
 import { AlocarCargo } from "../../pages/cargo/AlocarCargo";
+import { CadastrarTarefa } from "../../pages/tarefa/CadastrarTarefa";
+import { AlocarTarefa } from "../../pages/tarefa/AlocarTarefa";
+import { CadastrarEditarFuncionario } from "../../pages/funcionario/CadastrarEditarFuncionario";
+import { ListarFuncionarios } from "../../pages/funcionario/ListarFuncionarios";
 
 export const Router = () => {
     return (
@@ -20,7 +25,9 @@ export const Router = () => {
                     <Route path="/area/cadastrar/" element={<CadastrarEditarArea/>}/>
                     <Route path="/area/editar/:id" element={<CadastrarEditarArea />} />
                     <Route path="/area/listar" element={<ListarArea/>}/>
-                    <Route path="/cliente/cadastrar" element={<CadastrarClientes/>}/>
+                    <Route path="/cliente/cadastrar" element={<CadastrarEditarClientes/>}/>
+                    <Route path="/cliente/editar/:id" element={<CadastrarEditarClientes/>}/>
+                    <Route path="/cliente/listar" element={<ListarClientes/>}/>
                     <Route path="/grao/cadastrar" element={<CadastrarEditarGrao/>}/>
                     <Route path="/grao/listar" element={<ListarGrao/>}/>
                     <Route path="/grao/editar/:id" element={<CadastrarEditarGrao/>}/>
@@ -32,6 +39,11 @@ export const Router = () => {
                     <Route path="/fertilizante/listar" element={<ListarFertilizante />} />
                     <Route path="/cargo/cadastrar/" element={<CadastrarEditarCargo />} />
                     <Route path="/cargo/alocar" element={<AlocarCargo />} />
+                    <Route path="/tarefa/cadastrar" element={<CadastrarTarefa />} />
+                    <Route path="/tarefa/alocar/" element={<AlocarTarefa />} />
+                    <Route path="/funcionario/cadastrar" element={<CadastrarEditarFuncionario />} />
+                    <Route path="/funcionario/editar/:id" element={<CadastrarEditarFuncionario />} />
+                    <Route path="/funcionario/listar" element={<ListarFuncionarios />} />
                 </Routes>
             </div>
         </div>

@@ -66,10 +66,8 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><Link to="#" className="submenu-item">Cadastrar Funcionário</Link></li>
-                        <li><Link to="#" className="submenu-item">Listar Funcionário</Link></li>
-                        <li><Link to="#" className="submenu-item">Alocar Cargo</Link></li>
-                        <li><Link to="#" className="submenu-item">Alocar Tarefa</Link></li>
+                        <li><Link to="/funcionario/cadastrar" className="submenu-item">Cadastrar Funcionário</Link></li>
+                        <li><Link to="/funcionario/listar" className="submenu-item">Listar Funcionário</Link></li>
                     </ul>
                 </li>
 
@@ -91,7 +89,7 @@ export const SideBar = () => {
                     </div>
                     <ul className="submenu">
                         <li><Link to="/cliente/cadastrar" className="submenu-item">Cadastrar Clientes</Link></li>
-                        <li><Link to="#" className="submenu-item">Listar Clientes</Link></li>
+                        <li><Link to="/cliente/listar" className="submenu-item">Listar Clientes</Link></li>
                     </ul>
                 </li>
 
@@ -177,8 +175,8 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><Link to="#" className="submenu-item">Cadastrar Tarefa</Link></li>
-                        <li><Link to="#" className="submenu-item">Listar Tarefas</Link></li>
+                        <li><Link to="/tarefa/cadastrar" className="submenu-item">Cadastrar Tarefa</Link></li>
+                        <li><Link to="/tarefa/alocar" className="submenu-item">Alocar Tarefa</Link></li>
                     </ul>
                 </li>
             </ul>
