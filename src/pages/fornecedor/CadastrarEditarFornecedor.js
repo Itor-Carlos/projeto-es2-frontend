@@ -26,7 +26,7 @@ export const CadastrarEditarFornecedor = () => {
         cep: "",
         documento: "",
         telefone: "",
-        razaoSocial: "",
+        razaosocial: "",
         empresa: "",
     });
 
