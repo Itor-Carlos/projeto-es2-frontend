@@ -77,8 +77,8 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><Link to="#" className="submenu-item">Cadastrar Fornecedor</Link></li>
-                        <li><Link to="#" className="submenu-item">Listar Fornecedores</Link></li>
+                        <li><Link to="/fornecedor/cadastrar" className="submenu-item">Cadastrar Fornecedor</Link></li>
+                        <li><Link to="/fornecedor/listar" className="submenu-item">Listar Fornecedores</Link></li>
                     </ul>
                 </li>
 
