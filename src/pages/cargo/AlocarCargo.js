@@ -9,7 +9,6 @@ import { Toast } from "../../components/Toast";
 
 export const AlocarCargo = () => {
     const { id } = useParams();
-    const [isEditing, setIsEditing] = useState(false);
     const [isToastOpen, setIsToastOpen] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("success");
@@ -72,9 +71,7 @@ export const AlocarCargo = () => {
         fetchCargos();
         fetchFuncionarios();
 
-        if (id) {
-            setIsEditing(true);
-            
+        if (id) {            
             axios.get(`http://localhost:3306/cargos/alocar/${id}`)
                 .then(response => {
                     
@@ -98,13 +95,8 @@ export const AlocarCargo = () => {
 
     const handleSubmit = async (values) => {
         try {
-            if (isEditing) {
-                await axios.put(`http://localhost:3306/cargos/alocar/${values.nome}/${values.funcionario}`, values);
-                setToastMessage("Cargo alocado atualizado com sucesso!");
-            } else {
-                await axios.post("http://localhost:3306/cargos/alocar", values);
-                setToastMessage("Cargo alocado cadastrado com sucesso!");
-            }
+            await axios.post("http://localhost:3306/cargos/alocar", values);
+            setToastMessage("Cargo alocado com sucesso!");
             setToastType("success");
             setIsToastOpen(true);
         } catch (error) {
@@ -141,17 +133,17 @@ export const AlocarCargo = () => {
 
     return (
         <>
-            <TopBar entity={"Cargo"} useCase={isEditing ? "Editar Alocação de Cargo" : "Alocar Cargo"} />
+            <TopBar entity={"Cargo"} useCase={"Alocar Cargo"} />
             <div className="card">
-                <TitleSection title={isEditing ? "Editar Alocação de Cargo" : "Alocar Cargo"} />
+                <TitleSection title={"Alocar Cargo"} />
                 <GenericForm
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     sections={fields}
                     handleSubmit={handleSubmit}
                     entity={"Cargo"}
-                    useCase={isEditing ? "Editar Alocação de Cargo" : "Alocar Cargo"}
-                    title={isEditing ? "Editar Alocação de Cargo" : "Alocar Cargo"}
+                    useCase={"Alocar Cargo"}
+                    title={"Alocar Cargo"}
                 />
                 <Toast 
                     isOpen={isToastOpen} 
