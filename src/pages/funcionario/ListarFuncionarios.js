@@ -28,7 +28,7 @@ export const ListarFuncionarios = () => {
         {
             name: "documento",
             label: "Documento",
-            type: "string"
+            type: "document"
         },
         {
             name: "contratacao",
