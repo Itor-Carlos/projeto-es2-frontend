@@ -14,8 +14,11 @@ import { CadastrarEditarCargo } from "../../pages/cargo/CadastrarEditarCargo";
 import { AlocarCargo } from "../../pages/cargo/AlocarCargo";
 import { CadastrarTarefa } from "../../pages/tarefa/CadastrarTarefa";
 import { AlocarTarefa } from "../../pages/tarefa/AlocarTarefa";
+import { CadastrarEditarFornecedor } from "../../pages/fornecedor/CadastrarEditarFornecedor";
+import { ListarFornecedor } from "../../pages/fornecedor/ListarFornecedor";
 import { CadastrarEditarFuncionario } from "../../pages/funcionario/CadastrarEditarFuncionario";
 import { ListarFuncionarios } from "../../pages/funcionario/ListarFuncionarios";
+
 
 export const Router = () => {
     return (
@@ -41,6 +44,9 @@ export const Router = () => {
                     <Route path="/cargo/alocar" element={<AlocarCargo />} />
                     <Route path="/tarefa/cadastrar" element={<CadastrarTarefa />} />
                     <Route path="/tarefa/alocar/" element={<AlocarTarefa />} />
+                    <Route path="/fornecedor/cadastrar" element={<CadastrarEditarFornecedor />} />
+                    <Route path="/fornecedore/editar/:id" element={<CadastrarEditarFornecedor />} />
+                    <Route path="/fornecedor/listar" element={<ListarFornecedor />} />
                     <Route path="/funcionario/cadastrar" element={<CadastrarEditarFuncionario />} />
                     <Route path="/funcionario/editar/:id" element={<CadastrarEditarFuncionario />} />
                     <Route path="/funcionario/listar" element={<ListarFuncionarios />} />
