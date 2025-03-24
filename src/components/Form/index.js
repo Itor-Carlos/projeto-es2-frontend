@@ -10,25 +10,29 @@ export const GenericForm = ({ initialValues, validationSchema, sections, handleS
       validationSchema={validationSchema}
       onSubmit={(values) => {
         const updatedValues = { ...values };
-    
+
         Object.keys(updatedValues).forEach((key) => {
+          const value = updatedValues[key];
+
+          if (key.toLowerCase().includes("documento") || key.toLowerCase().includes("cpf") || key.toLowerCase().includes("cnpj")) {
+            updatedValues[key] = value ? value.replace(/\D/g, "") : value;
+          }
+
           if (key.toLowerCase().includes("data")) {
-            const dateValue = updatedValues[key];
-            if (!dateValue) {
+            if (!value) {
               updatedValues[key] = undefined;
             } else {
-              const currentDate = new Date(dateValue);
-              const formattedDate = currentDate.toISOString().split("T")[0];
-              updatedValues[key] = formattedDate;
+              const currentDate = new Date(value);
+              updatedValues[key] = currentDate.toISOString().split("T")[0];
             }
           }
         });
-    
+
         handleSubmit(updatedValues);
       }}
       enableReinitialize={true}
     >
-      {({ handleSubmit }) => (
+      {({ handleSubmit, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           {sections.map((section, sectionIndex) => (
             <div key={sectionIndex} className="form-grid">
@@ -58,18 +62,30 @@ export const GenericForm = ({ initialValues, validationSchema, sections, handleS
                     </div>
                   ) : field.type === "document" ? (
                     <div className="document-group">
-                      <Field 
-                        type="text" 
-                        id={field.name} 
-                        name={field.name} 
-                        placeholder={field.placeholder} 
+                      <Field
+                        type="text"
+                        id={field.name}
+                        name={field.name}
+                        placeholder={field.placeholder}
                         className="input"
                         style={field.style || {}}
+                        onChange={(e) => {
+                          let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+                          
+                          if (value.length <= 11) {
+                            value = cpf.format(value); // Formata como CPF
+                          } else {
+                            value = cnpj.format(value); // Formata como CNPJ
+                          }
+
+                          setFieldValue(field.name, value);
+                        }}
                         validate={(value) => {
-                          if (!value) return "Campo obrigatório";
-                          if (value.length < 11) return "Documento inválido";
-                          if (value.length === 11 && !cpf.isValid(value)) return "CPF inválido";
-                          if (value.length > 11 && !cnpj.isValid(value)) return "CNPJ inválido";
+                          const cleanValue = value.replace(/\D/g, "");
+                          if (!cleanValue) return "Campo obrigatório";
+                          if (cleanValue.length < 11) return "Documento inválido";
+                          if (cleanValue.length === 11 && !cpf.isValid(cleanValue)) return "CPF inválido";
+                          if (cleanValue.length > 11 && !cnpj.isValid(cleanValue)) return "CNPJ inválido";
                           return undefined;
                         }}
                       />

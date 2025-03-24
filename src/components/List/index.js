@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './index.css';
 import { Toast } from '../Toast';
 import { useNavigate } from 'react-router-dom';
+import { cpf, cnpj } from "cpf-cnpj-validator";
 
 export const List = ({ entity, headers, itemsPerPage = 5, baseUrl, page = 1, pageSize = 10 }) => {
   const [rows, setRows] = useState([]);
@@ -111,8 +112,10 @@ export const List = ({ entity, headers, itemsPerPage = 5, baseUrl, page = 1, pag
                     <td key={header.name}>
                       {header.type === 'boolean'
                         ? row[header.name] ? 'Sim' : 'Não'
+                        : header.type === 'document'
+                        ? (row[header.name]?.length <= 11 ? cpf.format(row[header.name]) : cnpj.format(row[header.name]))
                         : !header.formatFunction ? row[header.name] : header.formatFunction(row)
-                        }
+                      }
                     </td>
                   ))}
                   <td className="action-cell">

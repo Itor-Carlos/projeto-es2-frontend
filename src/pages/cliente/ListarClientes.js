@@ -27,7 +27,7 @@ export const ListarClientes = () => {
         {
             name: "documento",
             label: "Documento",
-            type: "string"
+            type: "document"
         }
     ];
 
