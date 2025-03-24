@@ -66,8 +66,8 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><Link to="#" className="submenu-item">Cadastrar Funcionário</Link></li>
-                        <li><Link to="#" className="submenu-item">Listar Funcionário</Link></li>
+                        <li><Link to="/funcionario/cadastrar" className="submenu-item">Cadastrar Funcionário</Link></li>
+                        <li><Link to="/funcionario/listar" className="submenu-item">Listar Funcionário</Link></li>
                     </ul>
                 </li>
 
@@ -164,8 +164,8 @@ export const SideBar = () => {
                         <span className="arrow">▲</span>
                     </div>
                     <ul className="submenu">
-                        <li><Link to="#" className="submenu-item">Cadastrar Cargo</Link></li>
-                        <li><Link to="#" className="submenu-item">Alocar Cargo</Link></li>
+                        <li><Link to="/cargo/cadastrar/" className="submenu-item">Cadastrar Cargo</Link></li>
+                        <li><Link to="/cargo/alocar" className="submenu-item">Alocar Cargo</Link></li>
                     </ul>
                 </li>
 
