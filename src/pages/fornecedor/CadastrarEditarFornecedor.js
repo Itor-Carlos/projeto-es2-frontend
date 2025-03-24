@@ -63,12 +63,12 @@ export const CadastrarEditarFornecedor = () => {
 
     const validationSchema = Yup.object({
         nome: Yup.string().typeError("Nome inválido").required("Campo obrigatório"),
-        email: Yup.string().typeError("Email inválido").required("Campo obrigatório"),
+        email: Yup.string().typeError("Email inválido").required("Campo obrigatório").max(50, "O email deve ter no máximo 50 caracteres"),
         documento: Yup.string().typeError("Documento inválido").required("Campo obrigatório").test("valid-document", "Documento inválido", (value) => {
             if (!value) return false;
             return Validation.validateCpfCnpj(value);
         }),
-        telefone: Yup.string().typeError("Telefone inválido").required("Campo obrigatório"),
+        telefone: Yup.string().typeError("Telefone inválido").required("Campo obrigatório").max(15, "O telefone deve ter no máximo 15 caracteres"),
         razaosocial: Yup.string().typeError("Razão Social inválida").required("Campo obrigatório"),
         empresa: Yup.string().typeError("Empresa inválida").required("Campo obrigatório"),
         estado: Yup.string().typeError("Estado inválido").required("Campo obrigatório"),
@@ -129,8 +129,8 @@ export const CadastrarEditarFornecedor = () => {
                 { label: "Nome Completo", type: "string", name: "nome", placeholder: "Digite o nome do fornecedor", required: true },
                 { label: "Documento (CPF/CNPJ)", type: "string", name: "documento", placeholder: "Digite o documento do fornecedor", required: true },
                 { label: "Razão Social", type: "string", name: "razaosocial", placeholder: "Digite a razão social do fornecedor", required: true },
-                { label: "Telefone", type: "string", name: "telefone", placeholder: "Digite o telefone do fornecedor", required: true },
-                { label: "Email", type: "string", name: "email", placeholder: "Digite o email do fornecedor", required: true },
+                { label: "Telefone", type: "string", name: "telefone", placeholder: "(99) 99999-9999", required: true },
+                { label: "Email", type: "string", name: "email", placeholder: "exemplo@email.com", required: true },
                 { label: "Empresa", type: "string", name: "empresa", placeholder: "Digite a empresa do fornecedor", required: true },
             ],
         },
