@@ -8,24 +8,22 @@ import { TitleSection } from "../../components/TitleSection";
 import { Toast } from "../../components/Toast";
 
 export const AlocarCargo = () => {
-    const { id } = useParams();
     const [isToastOpen, setIsToastOpen] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("success");
-
     const [initialValues, setInitialValues] = useState({
-        nome: "",
-        funcionario: ""
+        idcargo: "",
+        idfuncionario: ""
     });
 
     const [cargos, setCargos] = useState([]);
     const [funcionarios, setFuncionarios] = useState([]);
 
     const validationSchema = Yup.object({
-        nome: Yup.string()
+        idcargo: Yup.string()
             .typeError("Nome inválido")
             .required("Campo obrigatório"),
-        funcionario: Yup.string()
+        idfuncionario: Yup.string()
             .typeError("Funcionário inválido")
             .required("Campo obrigatório")
     });
@@ -71,31 +69,11 @@ export const AlocarCargo = () => {
         fetchCargos();
         fetchFuncionarios();
 
-        if (id) {            
-            axios.get(`http://localhost:3306/cargos/alocar/${id}`)
-                .then(response => {
-                    
-                    if(response.data) {
-                        setInitialValues({
-                            nome: response.data.nome,
-                            funcionario: response.data.funcionario
-                        });
-                    } else {
-                        throw new Error("Dados não encontrados para edição");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Erro ao carregar os dados para edição:", error);
-                    setToastMessage("Erro ao carregar os dados.");
-                    setToastType("error");
-                    setIsToastOpen(true);
-                });
-        }
-    }, [id]);
+    }, []);
 
     const handleSubmit = async (values) => {
         try {
-            await axios.post("http://localhost:3306/cargos/alocar", values);
+            await axios.post("http://localhost:3306/cargos/alocar_cargo", values);
             setToastMessage("Cargo alocado com sucesso!");
             setToastType("success");
             setIsToastOpen(true);
@@ -114,7 +92,7 @@ export const AlocarCargo = () => {
                 { 
                     label: "Cargo", 
                     type: "select", 
-                    name: "nome", 
+                    name: "idcargo", 
                     options: cargos, 
                     placeholder: "Selecione o Cargo", 
                     required: true
@@ -122,7 +100,7 @@ export const AlocarCargo = () => {
                 { 
                     label: "Funcionário", 
                     type: "select", 
-                    name: "funcionario", 
+                    name: "idfuncionario", 
                     options: funcionarios, 
                     placeholder: "Selecione o Funcionário", 
                     required: true

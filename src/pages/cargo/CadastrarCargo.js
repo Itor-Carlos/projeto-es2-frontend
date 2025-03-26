@@ -7,9 +7,8 @@ import { TopBar } from "../../components/TopBar";
 import { TitleSection } from "../../components/TitleSection";
 import { Toast } from "../../components/Toast";
 
-export const CadastrarEditarCargo = () => {
+export const CadastrarCargo = () => {
     const { id } = useParams();
-    const [isEditing, setIsEditing] = useState(false);
     const [isToastOpen, setIsToastOpen] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("success");
@@ -21,33 +20,10 @@ export const CadastrarEditarCargo = () => {
         nome: Yup.string().typeError("Nome inválido").required("Campo obrigatório"),
     });
 
-    useEffect(() => {
-        if(id) {
-            setIsEditing(true);
-            axios.get(`http://localhost:3306/cargos/${id}`)
-                .then(response => {
-                    setInitialValues({
-                        nome: response.data.nome,
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setToastMessage("Erro ao carregar os dados.");
-                    setToastType("error");
-                    setIsToastOpen(true);
-                });
-        }
-    }, [id]);
-
     const handleSubmit = async (values) => {
         try {
-            if(isEditing) {
-                await axios.put(`http://localhost:3306/cargos/${id}`, values);
-                setToastMessage("Cargo atualizado com sucesso!");
-            } else {
-                await axios.post("http://localhost:3306/cargos", values);
-                setToastMessage("Cargo cadastrado com sucesso!");
-            }
+            await axios.post("http://localhost:3306/cargos", values);
+            setToastMessage("Cargo cadastrado com sucesso!");
             setToastType("success");
             setIsToastOpen(true);
         } catch (error) {
@@ -68,17 +44,17 @@ export const CadastrarEditarCargo = () => {
 
     return (
         <>
-        <TopBar entity={"Cargo"} useCase={isEditing ? "Editar Cargo" : "Cadastrar Cargo"} />
+        <TopBar entity={"Cargo"} useCase={"Cadastrar Cargo"} />
         <div className="card">
-            <TitleSection title={isEditing ? "Editar Cargo" : "Cadastrar Cargo"} />
+            <TitleSection title={"Cadastrar Cargo"} />
             <GenericForm
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 sections={fields}
                 handleSubmit={handleSubmit}
                 entity={"Cargo"}
-                useCase={isEditing ? "Editar Cargo" : "Cadastrar Cargo"}
-                title={isEditing ? "Editar Cargo" : "Cadastrar Cargo"}
+                useCase={"Cadastrar Cargo"}
+                title={"Cadastrar Cargo"}
             />
             <Toast isOpen={isToastOpen} onClose={() => setIsToastOpen(false)} message={toastMessage} type={toastType} />
         </div>
