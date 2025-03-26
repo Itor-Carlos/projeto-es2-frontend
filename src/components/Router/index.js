@@ -18,6 +18,8 @@ import { CadastrarEditarFornecedor } from "../../pages/fornecedor/CadastrarEdita
 import { ListarFornecedor } from "../../pages/fornecedor/ListarFornecedor";
 import { CadastrarEditarFuncionario } from "../../pages/funcionario/CadastrarEditarFuncionario";
 import { ListarFuncionarios } from "../../pages/funcionario/ListarFuncionarios";
+import { CadastrarEditarPedidoCliente } from "../../pages/pedido/CadastrarEditarPedidoCliente";
+import { CadastrarEditarPedidoFornecedor } from "../../pages/pedido/CadastrarEditarPedidoFornecedor";
 
 
 export const Router = () => {
@@ -50,6 +52,8 @@ export const Router = () => {
                     <Route path="/funcionario/cadastrar" element={<CadastrarEditarFuncionario />} />
                     <Route path="/funcionario/editar/:id" element={<CadastrarEditarFuncionario />} />
                     <Route path="/funcionario/listar" element={<ListarFuncionarios />} />
+                    <Route path="/pedido/cadastrar/cliente" element={<CadastrarEditarPedidoCliente />} />
+                    <Route path="/pedido/cadastrar/fornecedor" element={<CadastrarEditarPedidoFornecedor />} />
                 </Routes>
             </div>
         </div>
