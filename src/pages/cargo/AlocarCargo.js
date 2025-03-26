@@ -73,7 +73,7 @@ export const AlocarCargo = () => {
 
     const handleSubmit = async (values) => {
         try {
-            await axios.post("http://localhost:3306/alocar_cargo", values);
+            await axios.post("http://localhost:3306/cargos/alocar_cargo", values);
             setToastMessage("Cargo alocado com sucesso!");
             setToastType("success");
             setIsToastOpen(true);
