@@ -79,7 +79,7 @@ export const AlocarCargo = () => {
             setIsToastOpen(true);
         } catch (error) {
             console.error("Erro ao salvar dados:", error);
-            setToastMessage("Erro ao salvar os dados.");
+            setToastMessage(error?.response?.data?.message);
             setToastType("error");
             setIsToastOpen(true);
         }
