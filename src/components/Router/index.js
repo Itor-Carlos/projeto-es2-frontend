@@ -20,6 +20,7 @@ import { CadastrarEditarFuncionario } from "../../pages/funcionario/CadastrarEdi
 import { ListarFuncionarios } from "../../pages/funcionario/ListarFuncionarios";
 import { CadastrarEditarPedidoCliente } from "../../pages/pedido/CadastrarEditarPedidoCliente";
 import { CadastrarEditarPedidoFornecedor } from "../../pages/pedido/CadastrarEditarPedidoFornecedor";
+import { Homepage } from "../../pages/homepage/Homepage";
 
 
 export const Router = () => {
@@ -27,6 +28,7 @@ export const Router = () => {
         <div className="main-content">
             <div>
                 <Routes>
+                    <Route path="/" element={<Homepage/>}/>
                     <Route path="/area/cadastrar/" element={<CadastrarEditarArea/>}/>
                     <Route path="/area/editar/:id" element={<CadastrarEditarArea />} />
                     <Route path="/area/listar" element={<ListarArea/>}/>
