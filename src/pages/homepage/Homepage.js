@@ -7,6 +7,7 @@ export const Homepage = () => {
     { title: 'Funcionários', path: '/funcionario/listar' },
     { title: 'Fornecedores', path: '/fornecedores' },
     { title: 'Clientes', path: '/clientes' },
+    { title: 'Áreas', path: '/areas' },
     { title: 'Produtos', path: '/produtos' },
     { title: 'Pedidos', path: '/pedidos' }
   ];

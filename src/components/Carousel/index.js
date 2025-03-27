@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { faPerson, faTruck, faUsers, faTree, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faPerson, faTruck, faUsers, faLayerGroup, faTree, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import CarouselCard from './carouselCard';
 import { handleCarouselScroll } from './carouselScroll';
 import './styles.css';
@@ -9,7 +9,7 @@ const Carousel = ({ items }) => {
     handleCarouselScroll();
   }, []);
 
-  const icons = [faPerson, faTruck, faUsers, faTree, faCartShopping];
+  const icons = [faPerson, faTruck, faUsers, faLayerGroup, faTree, faCartShopping];
 
   return (
     <div className="carousel">
