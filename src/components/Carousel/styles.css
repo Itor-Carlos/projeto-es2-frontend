@@ -1,8 +1,9 @@
 .carousel {
     display: flex;
     gap: 20px;
-    overflow-x: auto;
-    padding: 8px 0 28px 0;
+    overflow-x: auto !important;
+    scrollbar-color: #b88c53 #f1f1f1;
+    padding: 8px 20px 28px 20px;
     width: 100%;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
@@ -66,16 +67,22 @@
 }
 
 .carousel::-webkit-scrollbar {
-    height: 8px;
+    height: 12px;
+    display: block !important;
+    background-color: #f1f1f1;
+    border-radius: 8px;
 }
 
 .carousel::-webkit-scrollbar-track {
-    background: transparent;
+    background: #f1f1f1;
+    border-radius: 8px;
+    margin: 0 20px;
 }
 
 .carousel::-webkit-scrollbar-thumb {
     background-color: #b88c53;
-    border-radius: 4px;
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
 }
 
 @media screen and (max-width: 1024px) {

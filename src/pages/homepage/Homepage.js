@@ -5,10 +5,10 @@ import './Homepage.css';
 export const Homepage = () => {
   const carouselItems = [
     { title: 'Funcionários', path: '/funcionario/listar' },
-    { title: 'Fornecedores', path: '/fornecedores' },
-    { title: 'Clientes', path: '/clientes' },
-    { title: 'Áreas', path: '/areas' },
-    { title: 'Produtos', path: '/produtos' },
+    { title: 'Fornecedores', path: '/fornecedor/listar' },
+    { title: 'Clientes', path: '/cliente/listar' },
+    { title: 'Áreas', path: '/area/listar' },
+    { title: 'Produtos', path: '/grao/listar' },
     { title: 'Pedidos', path: '/pedidos' }
   ];
 
