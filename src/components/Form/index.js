@@ -1,9 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { cpf, cnpj } from "cpf-cnpj-validator";
 import "./styles.css";
 
-export const GenericForm = ({ initialValues, validationSchema, sections, handleSubmit }) => {
+export const GenericForm = ({ initialValues, entity, validationSchema, sections, handleSubmit }) => {
+  const navigate = useNavigate();
+  
+  const cancelButton = () => {
+    navigate(`/${entity.toLowerCase().slice(0, -1).normalize('NFD').replace(/[\u0300-\u036f]/g, '')}/listar`);
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -107,7 +114,7 @@ export const GenericForm = ({ initialValues, validationSchema, sections, handleS
           ))}
           <div className="btn-container">
             <button type="submit" className="btn btn-primary">Salvar</button>
-            <button type="button" className="btn btn-secondary">Cancelar</button>
+            <button type="button" className="btn btn-secondary" onClick={cancelButton}>Cancelar</button>
           </div>
         </Form>
       )}

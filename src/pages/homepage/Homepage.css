@@ -1,0 +1,33 @@
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main-content {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.banner {
+    background-image: url('../../assets/home_banner.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 430px;
+    color: white;
+    padding: 50px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+}
+
+@media screen and (max-width: 768px) {
+    .banner {
+        padding: 30px 15px;
+    }
+}

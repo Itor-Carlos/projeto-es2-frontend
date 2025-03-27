@@ -57,9 +57,18 @@ export const SideBar = () => {
     return (
         <div className="sidebar" ref={sidebarRef}>
             <div className="sidebar-header">
-                <img alt="logo da fazenda" className="logo" src={logo} />
+                <Link to="/">
+                    <img alt="logo da fazenda" className="logo" src={logo} />
+                </Link>
             </div>
             <ul className="sidebar-menu">
+                <li className="menu-item">
+                    <div className="menu-header">
+                        <Link to="/">
+                            <span>Home</span>
+                        </Link>
+                    </div>
+                </li>
                 <li className="menu-item">
                     <div className="menu-header">
                         <span>Funcionários</span>

@@ -9,7 +9,9 @@ function App() {
    <BrowserRouter>
     <div className="App">
       <SideBar/>
-      <Router/>
+      <div className="content-wrapper">
+        <Router/>
+      </div>
     </div>
    </BrowserRouter>
   );
