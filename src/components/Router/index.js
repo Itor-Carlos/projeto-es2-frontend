@@ -55,9 +55,9 @@ export const Router = () => {
                     <Route path="/funcionario/cadastrar" element={<CadastrarEditarFuncionario />} />
                     <Route path="/funcionario/editar/:id" element={<CadastrarEditarFuncionario />} />
                     <Route path="/funcionario/listar" element={<ListarFuncionarios />} />
-                    <Route path="/pedido/cadastrar/cliente" element={<CadastrarEditarPedidoCliente />} />
-                    <Route path="/pedido/cadastrar/fornecedor" element={<CadastrarEditarPedidoFornecedor />} />
-                    <Route path="/cliente/pedido/listar" element={<ListarPedidosClientes />} />
+                    <Route path="/pedido/cliente/cadastrar" element={<CadastrarEditarPedidoCliente />} />
+                    <Route path="/pedido/fornecedor/cadastrar" element={<CadastrarEditarPedidoFornecedor />} />
+                    <Route path="/pedido/cliente/listar" element={<ListarPedidosClientes />} />
                     <Route path="/pedido/cadastrar/cliente/:id" element={<CadastrarEditarPedidoCliente />} />
                 </Routes>
             </div>
