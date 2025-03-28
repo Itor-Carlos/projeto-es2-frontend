@@ -22,6 +22,7 @@ import { CadastrarEditarPedidoCliente } from "../../pages/pedido/CadastrarEditar
 import { CadastrarEditarPedidoFornecedor } from "../../pages/pedido/CadastrarEditarPedidoFornecedor";
 import { Homepage } from "../../pages/homepage/Homepage";
 import { ListarPedidosClientes } from "../../pages/pedido/ListarPedidosCliente";
+import { ListarPedidosFornecedores } from "../../pages/pedido/ListarPedidosFornecedores";
 
 
 export const Router = () => {
@@ -58,7 +59,9 @@ export const Router = () => {
                     <Route path="/pedido/cliente/cadastrar" element={<CadastrarEditarPedidoCliente />} />
                     <Route path="/pedido/fornecedor/cadastrar" element={<CadastrarEditarPedidoFornecedor />} />
                     <Route path="/pedido/cliente/listar" element={<ListarPedidosClientes />} />
-                    <Route path="/pedido/cadastrar/cliente/:id" element={<CadastrarEditarPedidoCliente />} />
+                    <Route path="/pedido/cliente/editar/:id" element={<CadastrarEditarPedidoCliente />} />
+                    <Route path="/pedido/fornecedor/listar" element={<ListarPedidosFornecedores />} />
+                    <Route path="/pedido/fornecedor/editar/:id" element={<CadastrarEditarPedidoFornecedor />} />
                 </Routes>
             </div>
         </div>
