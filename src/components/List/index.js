@@ -3,10 +3,10 @@ import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import './index.css';
 import { Toast } from '../Toast';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { cpf, cnpj } from "cpf-cnpj-validator";
 
-export const List = ({ entity, headers, itemsPerPage = 5, baseUrl, page = 1, pageSize = 10 }) => {
+export const List = ({ entity, headers, itemsPerPage = 5, baseUrl, page = 1, pageSize = 10, additionalParameters = [] }) => {
   const [rows, setRows] = useState([]);
   const [filteredRows, setFilteredRows] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,14 +14,16 @@ export const List = ({ entity, headers, itemsPerPage = 5, baseUrl, page = 1, pag
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("success");
+  const location = useLocation();
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(baseUrl + `?page=${page}&pageSize=${pageSize}`);
+        const urlFetch = baseUrl + `?page=${page}&pageSize=${pageSize}` + additionalParameters.map(param => `&${param}`).join('');
+        const response = await fetch(urlFetch);
         const data = await response.json();
-
         setRows(data.rows || []);
         setFilteredRows(data.rows || []);
       } catch (error) {
@@ -70,8 +72,8 @@ export const List = ({ entity, headers, itemsPerPage = 5, baseUrl, page = 1, pag
   };
 
   const onEdit = (event) => {
-    const entity = baseUrl.split('/').pop().slice(0, -1)
-    navigate(`/${entity}/editar/${event[Object.keys(event)[0]]}`);
+    const hrefLocation = location.pathname.replace("listar", "editar");
+    navigate(`${hrefLocation}/${event[Object.keys(event)[0]]}`);
   };
 
   const handleInputChange = (e) => {
