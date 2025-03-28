@@ -10,17 +10,14 @@ export const GenericForm = ({ initialValues, entity, validationSchema, sections,
   
   const cancelButton = () => {
     const pathSegments = location.pathname.split("/").filter(Boolean);
-    if (pathSegments.length >= 3 && pathSegments[1] === "editar") {
-      pathSegments[1] = "listar";
-      pathSegments.splice(2, 1);
+  
+    if (pathSegments.includes("editar") || pathSegments.includes("cadastrar")) {
+      pathSegments[pathSegments.indexOf("editar")] = "listar";
+      pathSegments[pathSegments.indexOf("cadastrar")] = "listar";
+      pathSegments.splice(pathSegments.indexOf("listar") + 1, 1); // Remove ID se existir
     }
-
-    if(pathSegments.length >= 2 && pathSegments[1] === "cadastrar"){
-      pathSegments[1] = "listar";
-    }
-
-    const newPath = `/${pathSegments.join("/")}`;
-    navigate(newPath);
+  
+    navigate(`/${pathSegments.join("/")}`);
   };
 
   return (
