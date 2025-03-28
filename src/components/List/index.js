@@ -21,7 +21,9 @@ export const List = ({ entity, headers, itemsPerPage = 5, baseUrl, page = 1, pag
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const urlFetch = baseUrl + `?page=${page}&pageSize=${pageSize}` + additionalParameters.map(param => `&${param}`).join('');
+        const urlFetch = baseUrl + `?page=${page}&pageSize=${pageSize}` +  additionalParameters.map(param => 
+          Object.entries(param).map(([key, value]) => `&${key}=${encodeURIComponent(value)}`).join('')
+        ).join('');
         const response = await fetch(urlFetch);
         const data = await response.json();
         setRows(data.rows || []);
