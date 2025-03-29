@@ -1,14 +1,23 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { cpf, cnpj } from "cpf-cnpj-validator";
 import "./styles.css";
 
 export const GenericForm = ({ initialValues, entity, validationSchema, sections, handleSubmit }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   
   const cancelButton = () => {
-    navigate(`/${entity.toLowerCase().slice(0, -1).normalize('NFD').replace(/[\u0300-\u036f]/g, '')}/listar`);
+    const pathSegments = location.pathname.split("/").filter(Boolean);
+  
+    if (pathSegments.includes("editar") || pathSegments.includes("cadastrar")) {
+      pathSegments[pathSegments.indexOf("editar")] = "listar";
+      pathSegments[pathSegments.indexOf("cadastrar")] = "listar";
+      pathSegments.splice(pathSegments.indexOf("listar") + 1, 1); // Remove ID se existir
+    }
+  
+    navigate(`/${pathSegments.join("/")}`);
   };
 
   return (

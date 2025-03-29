@@ -9,10 +9,12 @@ import { Toast } from "../../components/Toast";
 
 export const CadastrarEditarPedidoFornecedor = () => {
     const { id } = useParams();
-    const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState(!!id);
     const [isToastOpen, setIsToastOpen] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("success");
+    const [clientes, setClientes] = useState([]);
+    const [produtos, setProdutos] = useState([]);
     const [initialValues, setInitialValues] = useState({
         idfornecedor: "",
         idproduto: "",
@@ -21,121 +23,84 @@ export const CadastrarEditarPedidoFornecedor = () => {
         valortotal: 0.0,
         datapedido: "",
         descricao: "",
+        idpedido: "",
+        iditem: "",
+        hora: "",
     });
-    const [clientes, setClientes] = useState([]);
-    const [produtos, setProdutos] = useState([]);
 
     useEffect(() => {
-
-        const fetchClientes = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:3306/fornecedores");
-                if (response.data && response.data.rows) {
-                    const fornecedoresData = response.data.rows.map((fornecedor) => ({ value: fornecedor.idfornecedor, label: `${fornecedor.nome}` }));
-                    setClientes(fornecedoresData);
-                }
-            } 
-            catch (error) {
-                console.error("Erro ao buscar clientes:", error);
-            }
-        }
+                const [fornecedoresRes, produtosRes] = await Promise.all([
+                    axios.get("http://localhost:3306/fornecedores"),
+                    axios.get("http://localhost:3306/produtos")
+                ]);
 
-        const fetchProdutos = async () => {
-            try {
-                const response = await axios.get("http://localhost:3306/produtos");
-                if (response.data && response.data.rows) {
-                    const produtosData = response.data.rows.map((produto) => ({ value: produto.idproduto, label: `${produto.nome}` }));
-                    setProdutos(produtosData);
-                }
+                setClientes(fornecedoresRes.data.rows.map(fornecedor => ({ value: fornecedor.idfornecedor, label: fornecedor.nome })));
+                setProdutos(produtosRes.data.rows.map(produto => ({ value: produto.idproduto, label: produto.nome })));
+            } catch (error) {
+                console.error("Erro ao buscar dados:", error);
             }
-            catch (error) {
-                console.error("Erro ao buscar produtos:", error);
-            }
-        }
+        };
 
         if (id) {
-            setIsEditing(true);
-            axios.get(`http://localhost:3306/fornecedores/${id}`)
+            axios.get(`http://localhost:3306/itens/${id}?entity=fornecedor`)
                 .then(response => {
-                    const cliente = response.data;
-                    const endereco = response.data.endereco;
+                    const pedido = response.data.rows[0];
+                    const item = pedido.itens[0];
+                    const produto = item.produto;
+                    const fornecedor = item.fornecedores[0];
+
                     setInitialValues({
-                        nome: cliente.nome,
-                        email: cliente.email,
-                        estado: endereco.estado,
-                        cidade: endereco.cidade,
-                        bairro: endereco.bairro,
-                        logradouro: endereco.logradouro,
-                        numero: endereco.numero,
-                        cep: endereco.cep,
-                        documento: cliente.documento,
-                        telefone: cliente.telefone,
-                        razaoSocial: cliente.razaosocial,
-                        empresa: cliente.empresa,
+                        idfornecedor: fornecedor.idfornecedor,
+                        idproduto: produto.idproduto,
+                        quantidade: item.quantidade,
+                        precounitario: produto.precounitario,
+                        valortotal: pedido.valor,
+                        datapedido: pedido.data,
+                        descricao: pedido.descricao,
+                        hora: pedido.hora,
+                        idpedido: pedido.idpedido,
+                        iditem: item.iditem,
                     });
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch(error => {
+                    console.error(error);
                     setToastMessage("Erro ao carregar os dados.");
                     setToastType("error");
                     setIsToastOpen(true);
                 });
-        };
-        fetchClientes();
-        fetchProdutos()
+        }
+        fetchData();
     }, [id]);
 
     useEffect(() => {
-        const quantidade = Number(initialValues.quantidade) || 0;
-        const precounitario = Number(initialValues.precounitario) || 0;
-        const total = quantidade * precounitario;
-    
-        setInitialValues((prevValues) => ({
-            ...prevValues,
-            valortotal: total.toFixed(2),
+        setInitialValues(prev => ({
+            ...prev,
+            valortotal: (prev.quantidade * prev.precounitario).toFixed(2),
         }));
     }, [initialValues.quantidade, initialValues.precounitario]);
 
     const validationSchema = Yup.object({
-        idfornecedor: Yup.number().typeError("Fornecedor inválido").required("Campo obrigatório"),
+        idfornecedor: Yup.number().required("Campo obrigatório"),
         idproduto: Yup.string().required("Campo obrigatório"),
-        quantidade: Yup.number().typeError("Quantidade inválida").positive("A quantidade deve ser positiva").required("Campo obrigatório"),
-        precounitario: Yup.number().typeError("Preço Unitário inválido").positive("O preço unitário deve ser positivo").required("Campo obrigatório"),
-        valortotal: Yup.number().typeError("Valor total inválido").positive("O valor total deve ser positivo").required("Campo obrigatório"),
-        datapedido: Yup.date().typeError("Data inválida").required("Campo obrigatório"),
+        quantidade: Yup.number().positive().required("Campo obrigatório"),
+        precounitario: Yup.number().positive().required("Campo obrigatório"),
+        valortotal: Yup.number().positive().required("Campo obrigatório"),
+        datapedido: Yup.date().required("Campo obrigatório"),
         hora: Yup.string().required("Campo obrigatório"),
     });
 
     const handleSubmit = async (values) => {
         try {
-
-            console.log(values);
-            const produtoSelecionado = produtos.find(produto => String(produto.value) === String(values.idproduto));
-
-            const pedido = {
-                valor: values.valortotal,
-                data: values.datapedido,
-                hora: values.hora
-            }
-
-            const item = {
-                quantidade: values.quantidade,
-            }
-            
-            const produto = {
-                precounitario: values.precounitario,
-                descricao: values.descricao,
-                nome: produtoSelecionado.label,
-            }
-            
-            const param = {
-                item,
-                produto,
-                pedido,
-                idfornecedor: values.idfornecedor,
-            };
+            const pedido = { valor: values.valortotal, data: values.datapedido, hora: values.hora };
+            const item = { quantidade: values.quantidade };
+            const produto = { precounitario: values.precounitario, descricao: values.descricao, idproduto: values.idproduto };
+            const param = { item, produto, pedido, idfornecedor: values.idfornecedor };
 
             if (isEditing) {
+                param.pedido.idpedido = values.idpedido;
+                param.item.iditem = values.iditem;
                 await axios.put(`http://localhost:3306/itens/${id}`, param);
                 setToastMessage("Pedido atualizado com sucesso!");
             } else {
@@ -143,16 +108,10 @@ export const CadastrarEditarPedidoFornecedor = () => {
                 setToastMessage("Pedido cadastrado com sucesso!");
             }
             setToastType("success");
-            setIsToastOpen(true);
         } catch (error) {
-            if (error.response) {
-                setToastMessage(error.response.data.message || "Erro ao processar a solicitação.");
-            } else if (error.request) {
-                setToastMessage("Erro de rede: Não foi possível conectar ao servidor.");
-            } else {
-                setToastMessage("Erro inesperado: " + error.message);
-            }
+            setToastMessage(error.response?.data?.message || "Erro ao processar a solicitação.");
             setToastType("error");
+        } finally {
             setIsToastOpen(true);
         }
     };
@@ -161,26 +120,26 @@ export const CadastrarEditarPedidoFornecedor = () => {
         {
             titleSection: "Informações do Pedido",
             fields: [
-                { label: "Fornecedor", type: "select", options: clientes, name: "idfornecedor", placeholder: "Selecione o Fornecedor", required: true },
-                { label: "Produto", type: "select", options: produtos, name: "idproduto", placeholder: "Selecione o Produto", required: true },
-                { label: "Quantidade", type: "number", name:"quantidade", placeholder: "Digite a quantidade do produto", required: true },
-                { label: "Preço Unitário", type: "number", name: "precounitario", placeholder: "Digite o preço unitário do produto", required: true },
-                { label: "Valor Total R$", type: "number", name: "valortotal", placeholder: "Valor total da compra", required: true },
-                { label: "Data do Pedido", type: "date", name: "datapedido", placeholder: "", required: true },
-                { label: "Hora do Pedido", type: "time", name: "hora", placeholder: "", required: true },
+                { label: "Fornecedor", type: "select", placeholder: "Selecione um fornecedor" ,options: clientes, name: "idfornecedor", required: true },
+                { label: "Produto", type: "select", options: produtos, placeholder: "Selecione um produto" ,name: "idproduto", required: true },
+                { label: "Quantidade", type: "number", name:"quantidade", required: true },
+                { label: "Preço Unitário", type: "number", name: "precounitario", required: true },
+                { label: "Valor Total R$", type: "number", name: "valortotal", required: true, disabled: true },
+                { label: "Data do Pedido", type: "date", name: "datapedido", required: true },
+                { label: "Hora do Pedido", type: "time", name: "hora", required: true },
             ],
         },
         {
             titleSection: "",
             fields: [
-                { label: "Descrição", type: "textarea", name: "descricao", placeholder: "Digite uma descrição para o pedido", required: true, style: { width: "1130px" } },
+                { label: "Descrição", type: "textarea", name: "descricao", required: true, style: { width: "1060px" } },
             ]
         }
     ];
 
     return (
         <>
-            <TopBar entity={"Pedidos"} useCase={isEditing ? "Editar Pedido de Fornecedor" : "Cadastrar Pedido de Fornecedor"} />
+            <TopBar entity="Pedidos" useCase={isEditing ? "Editar Pedido de Fornecedor" : "Cadastrar Pedido de Fornecedor"} />
             <div className="card">
                 <TitleSection title={isEditing ? "Editar Pedido" : "Cadastrar Pedido"} />
                 <GenericForm
@@ -188,9 +147,8 @@ export const CadastrarEditarPedidoFornecedor = () => {
                     validationSchema={validationSchema}
                     sections={fields}
                     handleSubmit={handleSubmit}
-                    entity={"Pedidos"}
+                    entity="Pedidos"
                     useCase={isEditing ? "Editar Pedido" : "Cadastrar Pedido"}
-                    title={isEditing ? "Editar Pedido" : "Cadastrar Pedido"}
                 />
                 <Toast isOpen={isToastOpen} onClose={() => setIsToastOpen(false)} message={toastMessage} type={toastType} />
             </div>

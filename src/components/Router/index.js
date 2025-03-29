@@ -21,6 +21,8 @@ import { ListarFuncionarios } from "../../pages/funcionario/ListarFuncionarios";
 import { CadastrarEditarPedidoCliente } from "../../pages/pedido/CadastrarEditarPedidoCliente";
 import { CadastrarEditarPedidoFornecedor } from "../../pages/pedido/CadastrarEditarPedidoFornecedor";
 import { Homepage } from "../../pages/homepage/Homepage";
+import { ListarPedidosClientes } from "../../pages/pedido/ListarPedidosCliente";
+import { ListarPedidosFornecedores } from "../../pages/pedido/ListarPedidosFornecedores";
 
 
 export const Router = () => {
@@ -49,13 +51,17 @@ export const Router = () => {
                     <Route path="/tarefa/cadastrar" element={<CadastrarTarefa />} />
                     <Route path="/tarefa/alocar/" element={<AlocarTarefa />} />
                     <Route path="/fornecedor/cadastrar" element={<CadastrarEditarFornecedor />} />
-                    <Route path="/fornecedore/editar/:id" element={<CadastrarEditarFornecedor />} />
+                    <Route path="/fornecedor/editar/:id" element={<CadastrarEditarFornecedor />} />
                     <Route path="/fornecedor/listar" element={<ListarFornecedor />} />
                     <Route path="/funcionario/cadastrar" element={<CadastrarEditarFuncionario />} />
                     <Route path="/funcionario/editar/:id" element={<CadastrarEditarFuncionario />} />
                     <Route path="/funcionario/listar" element={<ListarFuncionarios />} />
-                    <Route path="/pedido/cadastrar/cliente" element={<CadastrarEditarPedidoCliente />} />
-                    <Route path="/pedido/cadastrar/fornecedor" element={<CadastrarEditarPedidoFornecedor />} />
+                    <Route path="/pedido/cliente/cadastrar" element={<CadastrarEditarPedidoCliente />} />
+                    <Route path="/pedido/fornecedor/cadastrar" element={<CadastrarEditarPedidoFornecedor />} />
+                    <Route path="/pedido/cliente/listar" element={<ListarPedidosClientes />} />
+                    <Route path="/pedido/cliente/editar/:id" element={<CadastrarEditarPedidoCliente />} />
+                    <Route path="/pedido/fornecedor/listar" element={<ListarPedidosFornecedores />} />
+                    <Route path="/pedido/fornecedor/editar/:id" element={<CadastrarEditarPedidoFornecedor />} />
                 </Routes>
             </div>
         </div>
